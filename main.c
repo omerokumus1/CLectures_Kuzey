@@ -2,26 +2,26 @@
 
 int f(int, int);
 
-void f2(int *A, int n) {
-    int i, j, t, cur, next;
-    for (i = 0; i < n - 1; i++) {
-        for (j = 0; j < n - i - 1; j++) // i = 0 -> jmax = 4, i = 1 -> jmax = 3
-        {
-            cur = A[j];
-            next = A[j + 1];
-            if (cur < next) {
-                t = A[j];
-                A[j] = A[j + 1];
-                A[j + 1] = t;
-            }
-            for (int i = 0; i < 5; ++i) {
-                printf("%d, ", A[i]);
-            }
-            printf("\n");
-        }
-        printf("j: %d\n", j);
-    }
-}
+//void f2(int *A, int n) {
+//    int i, j, t, cur, next;
+//    for (i = 0; i < n - 1; i++) {
+//        for (j = 0; j < n - i - 1; j++) // i = 0 -> jmax = 4, i = 1 -> jmax = 3
+//        {
+//            cur = A[j];
+//            next = A[j + 1];
+//            if (cur < next) {
+//                t = A[j];
+//                A[j] = A[j + 1];
+//                A[j + 1] = t;
+//            }
+//            for (int i = 0; i < 5; ++i) {
+//                printf("%d, ", A[i]);
+//            }
+//            printf("\n");
+//        }
+//        printf("j: %d\n", j);
+//    }
+//}
 
 int main() {
     // C dilinde 0 hariç tüm sayılar true, 0 ise false olarak yorumlanır
@@ -134,7 +134,131 @@ int main() {
     // B, D, A, C, B, E, E, B
 
     // 6 / 2 * 3 -> 9, 1
-    return 0;
+
+
+    // 2014 soruları
+
+    // 36. soru
+    /*
+        1   2   3   4   1
+        5   6   7   8   5
+        9   10  11  12  9
+
+     i = 0
+        b[0][0] = 0
+
+        0   2   3   4   1
+        0   2   3   1   4
+        0   2   1   3   4
+        0   1   2   3   4
+        1   0   2   3   4 ***
+
+    i = 1
+        b[1][0] = 1
+
+        1   6   7   8   5
+        1   6   7   5   8
+        1   6   5   7   8
+        1   5   6   7   8 ***
+
+    i = 2
+        b[2][0] = 2
+
+        2   10  11  12  9
+        2   10  11  9   12
+        2   10  9   11  12 ***
+
+        1   0   2   3   4
+        1   5   6   7   8
+        2   10  9   11  12
+
+        1 + 5 + 9 + 11 = 26
+     */
+
+
+    // 37. soru
+    /*
+     a = {1,2,3,4,5,6,7,8,9,10}
+
+     1. iterasyon i = 0
+     a[ i = a[i] ] = i*2;
+        i = a[i] => i = a[0] => i = 1 => a[ i = a[i] ] -> a[1]
+        a[ i = a[i] ] = i => a[1] = 1 -> a = {1,1,3,4,5,6,7,8,9,10}
+
+     2. iterasyon i = 2
+     a[ i = a[2] ] = i; => i = 3 => a[3] = 3; -> a = 1,1,3,3,5,6,7,8,9,10
+     1 1 3 3 5 5 7 7 9 9
+     5 7 9
+     */
+
+    // 38. soru
+    /*
+     * Ternary operator (conditional expression)
+     *  x = (bool-expr) ? (if-true-value) : (else-value)
+     *  x = (7 > 3) ? 1 : 0; -> x = 1
+     *  x = (7 < 3) ? 1 : 0; -> x = 0
+
+     a = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0}
+
+     i = 0
+        a[0] += (j % 2) ? a[j] : -a[j]
+        a[0] += a[9] - a[8] + a[7] ...
+                a[0] = 9+0-1+2-3+4-5+6-7+8 = 13
+        a[2] = 0-1+2-3+4-5+6+7 = 10
+        a[4] = 0-1+2-3+4+5 = 7
+        a[6] = 0-1+2+3 = 4
+        a[8] = 0+1 = 1
+        13-10+7-4+1
+     */
+
+    // 39. soru
+    /*
+     b = 0, a = 3829421
+     b <= a%10 -> b = 1, (+1 *)
+        a = 382942
+
+     b = 1, a = 382942
+     b <= a%10 -> b = 2, (+1 *)
+        a = 38294
+    a = 4 -> +1*, b = 4, a = 3829
+    a = 9 -> +1*, b = 9, a = 382
+    7+4=11 *
+
+     */
+
+    // 40. soru
+    /*
+     a = {2, 20, 201, 2014}
+
+     i = 0
+        a[0] >>= 1 -> a[0] = 2 >>= 1 -> a[0] = 1
+            a = 1, 20, 201, 2014
+
+        2 -> 1, +1
+        20 -> 10 -> 5 -> 2 -> 1, +4
+        201 100 50 25 12 6 3 1
+        201: 2^7 = 128, 2^8 = 256, +7
+        2014: 2^9 = 512, 2^10 = 1024, 2^11 = 2048, +10
+     */
+
+    // 41. soru
+    /* (int*) malloc(20*sizeof(int));
+     *      malloc = Memory ALLOCation
+     *      malloc(20*sizeof(int)) -> 20 tane boşluk ayırır,
+     *              her bir boşluk ise bir int değer alır
+     *      malloc(20*sizeof(int)) -> 20 elemanlı int array
+     *      malloc(10*sizeof(float)) -> 10 elemanlı float array
+     *      malloc(5*sizeof(char)) -> 5 elemanlı char array
+
+        a = {1,1,1,1,1,1,1...,1,1,1,} 20 tane 1
+        s = 0+ 0*1+ 2*1+ 3*1 +...+19*1
+        19*20/2 = 190
+
+
+
+     */
+
+     return 0;
 }
 
 int f(int n, int m) {
